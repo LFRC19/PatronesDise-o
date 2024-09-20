@@ -1,0 +1,67 @@
+Explicación: El patrón Composite compone objetos en estructuras de árbol para representar jerarquías de partes y enteros. Permite que los clientes traten objetos individuales y compuestos de manera uniforme.
+
+Ejemplo: Un mazo de cartas compuesto por cartas individuales.
+
+// Componente
+public abstract class Carta
+{
+    public abstract void Mostrar();
+}
+
+// Hoja
+public class CartaIndividual : Carta
+{
+    private string _nombre;
+
+    public CartaIndividual(string nombre)
+    {
+        _nombre = nombre;
+    }
+
+    public override void Mostrar()
+    {
+        Console.WriteLine($"Carta: {_nombre}");
+    }
+}
+
+// Compuesto
+public class Mazo : Carta
+{
+    private List<Carta> _cartas = new List<Carta>();
+
+    public void Agregar(Carta carta)
+    {
+        _cartas.Add(carta);
+    }
+
+    public void Remover(Carta carta)
+    {
+        _cartas.Remove(carta);
+    }
+
+    public override void Mostrar()
+    {
+        foreach (var carta in _cartas)
+        {
+            carta.Mostrar();
+        }
+    }
+}
+
+// Uso
+class Program
+{
+    static void Main(string[] args)
+    {
+        Carta carta1 = new CartaIndividual("Dragón Blanco de Ojos Azules");
+        Carta carta2 = new CartaIndividual("Mago Oscuro");
+        Carta carta3 = new CartaIndividual("Olla de la Avaricia");
+
+        Mazo mazo = new Mazo();
+        mazo.Agregar(carta1);
+        mazo.Agregar(carta2);
+        mazo.Agregar(carta3);
+
+        mazo.Mostrar(); // Muestra todas las cartas del mazo
+    }
+}
