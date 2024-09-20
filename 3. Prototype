@@ -1,0 +1,46 @@
+Explicación: El patrón Prototype permite crear nuevos objetos copiando una instancia ya existente, en lugar de crearla desde cero. Esto es útil cuando las creaciones son costosas.
+
+Ejemplo: Clonar cartas para evitar crearlas repetidamente.
+
+
+// Interfaz para Clonar
+public abstract class CartaPrototype
+{
+    public abstract CartaPrototype Clonar();
+    public abstract void MostrarInfo();
+}
+
+// Carta Concreta
+public class CartaMonstruo : CartaPrototype
+{
+    public string Nombre { get; set; }
+
+    public CartaMonstruo(string nombre)
+    {
+        Nombre = nombre;
+    }
+
+    public override CartaPrototype Clonar()
+    {
+        return (CartaMonstruo)this.MemberwiseClone();
+    }
+
+    public override void MostrarInfo()
+    {
+        Console.WriteLine($"Carta de Monstruo: {Nombre}");
+    }
+}
+
+// Uso
+class Program
+{
+    static void Main(string[] args)
+    {
+        CartaMonstruo cartaOriginal = new CartaMonstruo("Dragón Negro de Ojos Rojos");
+        cartaOriginal.MostrarInfo();
+        
+        // Clonando la carta
+        CartaMonstruo cartaClonada = (CartaMonstruo)cartaOriginal.Clonar();
+        cartaClonada.MostrarInfo();
+    }
+}
