@@ -1,0 +1,89 @@
+Explicación: Abstract Factory es un patrón que proporciona una interfaz para crear familias de objetos relacionados o dependientes sin especificar sus clases concretas.
+
+Ejemplo: Crear diferentes tipos de mazos (Monstruos, Hechizos, Trampas).
+
+
+// Productos Abstractos
+public abstract class Monstruo
+{
+    public abstract void Invocar();
+}
+
+public abstract class Hechizo
+{
+    public abstract void Activar();
+}
+
+public abstract class Trampa
+{
+    public abstract void Colocar();
+}
+
+// Productos Concretos
+public class MonstruoDragones : Monstruo
+{
+    public override void Invocar()
+    {
+        Console.WriteLine("Invocando Dragón Blanco de Ojos Azules.");
+    }
+}
+
+public class HechizoPotente : Hechizo
+{
+    public override void Activar()
+    {
+        Console.WriteLine("Activando la carta Olla de la Avaricia.");
+    }
+}
+
+public class TrampaRefuerzos : Trampa
+{
+    public override void Colocar()
+    {
+        Console.WriteLine("Colocando la carta Refuerzos.");
+    }
+}
+
+// Fábrica Abstracta
+public abstract class FabricaDeCartas
+{
+    public abstract Monstruo CrearMonstruo();
+    public abstract Hechizo CrearHechizo();
+    public abstract Trampa CrearTrampa();
+}
+
+// Fábrica Concreta
+public class FabricaDeCartasBasicas : FabricaDeCartas
+{
+    public override Monstruo CrearMonstruo()
+    {
+        return new MonstruoDragones();
+    }
+
+    public override Hechizo CrearHechizo()
+    {
+        return new HechizoPotente();
+    }
+
+    public override Trampa CrearTrampa()
+    {
+        return new TrampaRefuerzos();
+    }
+}
+
+// Uso
+class Program
+{
+    static void Main(string[] args)
+    {
+        FabricaDeCartas fabrica = new FabricaDeCartasBasicas();
+        
+        var monstruo = fabrica.CrearMonstruo();
+        var hechizo = fabrica.CrearHechizo();
+        var trampa = fabrica.CrearTrampa();
+        
+        monstruo.Invocar();
+        hechizo.Activar();
+        trampa.Colocar();
+    }
+}
